@@ -3,12 +3,7 @@ FROM ich777/debian-baseimage
 LABEL maintainer="admin@minenet.at"
 
 RUN apt-get update && \
-	apt-get -y install --no-install-recommends curl gnupg2 dbus software-properties-common && \
-	curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - && \
-	add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian buster stable" && \
-	apt-get update && \
-	apt-get -y install --no-install-recommends docker-ce docker-ce-cli containerd.io && \
-	apt-get -y purge software-properties-common gnupg2 && \
+	apt-get -y install --no-install-recommends curl && \
 	rm -rf /var/lib/apt/lists/*
 
 ENV DATA_DIR="/jenkins"
