@@ -7,9 +7,6 @@ if [ "${JENKINS_V}" == "latest" ]; then
 	JENKINS_V=$LAT_V
 fi
 
-echo "---Setting umask to ${UMASK}---"
-umask ${UMASK}
-
 echo "---Checking for 'runtime' folder---"
 if [ ! -d ${DATA_DIR}/runtime ]; then
 	echo "---'runtime' folder not found, creating...---"
@@ -85,7 +82,7 @@ fi
 export RUNTIME_NAME="$(ls -d ${DATA_DIR}/runtime/* | cut -d '/' -f4)"
 export JENKINS_HOME=${DATA_DIR}/workdir
 rm ${DATA_DIR}/.wget* > /dev/null 2>&1
-chmod -R 777 ${DATA_DIR}
+chmod -R ${DATA_PERM} ${DATA_DIR}
 
 cd ${DATA_DIR}/war
 ${DATA_DIR}/runtime/${RUNTIME_NAME}/bin/java -jar ${EXTRA_JVM_PARAMS} ${DATA_DIR}/war/jenkins.war --httpPort=${HTTP_PORT} ${EXTRA_JENKINS_PARAMS}
