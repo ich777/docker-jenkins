@@ -3,9 +3,6 @@ if [ -d ${DATA_DIR}/war ]; then
 	CUR_V="$(find ${DATA_DIR}/war -name installedv* | cut -d 'v' -f2)"
 fi
 LAT_V="$(curl -s https://api.github.com/repos/jenkinsci/jenkins/releases/latest | grep tag_name | cut -d '-' -f2 | cut -d '"' -f1)"
-if [ "${JENKINS_V}" == "latest" ]; then
-	JENKINS_V=$LAT_V
-fi
 
 echo "---Checking for 'runtime' folder---"
 if [ ! -d ${DATA_DIR}/runtime ]; then
