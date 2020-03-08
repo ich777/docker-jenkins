@@ -3,6 +3,12 @@ if [ -d ${DATA_DIR}/war ]; then
 	CUR_V="$(find ${DATA_DIR}/war -name installedv* | cut -d 'v' -f2)"
 fi
 LAT_V="$(curl -s https://api.github.com/repos/jenkinsci/jenkins/releases/latest | grep tag_name | cut -d '-' -f2 | cut -d '"' -f1)"
+if [ "${JENKINS_V}" == "latest" ]; then
+	JENKINS_V=$LAT_V
+    DL_V="latest"
+else
+	DL_V="${JENKINS_V}"
+fi
 
 echo "---Checking for 'runtime' folder---"
 if [ ! -d ${DATA_DIR}/runtime ]; then
@@ -44,7 +50,7 @@ fi
 if [ ! -f ${DATA_DIR}/war/jenkins.war ]; then
 	echo "---Jenkins not found, downloading...---"
     cd ${DATA_DIR}/war
-	if wget -q -nc --show-progress --progress=bar:force:noscroll "${JENKINS_URL}/jenkins/war/${JENKINS_V}/jenkins.war" ; then
+	if wget -q -nc --show-progress --progress=bar:force:noscroll "${JENKINS_URL}/jenkins/war/${DL_V}/jenkins.war" ; then
 		echo "---Successfully downloaded Jenkins!---"
 	else
 		echo "---Something went wrong, can't download Jenkins, putting server in sleep mode---"
@@ -61,7 +67,7 @@ if [ "${JENKINS_V}" != "$CUR_V" ]; then
     rm ${DATA_DIR}/war/installedv$CUR_V
     rm ${DATA_DIR}/war/jenkins.war
 	cd ${DATA_DIR}/war
-	if wget -q -nc --show-progress --progress=bar:force:noscroll "${JENKINS_URL}/jenkins/war/${JENKINS_V}/jenkins.war" ; then
+	if wget -q -nc --show-progress --progress=bar:force:noscroll "${JENKINS_URL}/jenkins/war/${DL_V}/jenkins.war" ; then
 		echo "---Successfully downloaded Jenkins!---"
 	else
 		echo "---Something went wrong, can't download Jenkins, putting server in sleep mode---"
