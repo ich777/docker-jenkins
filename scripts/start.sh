@@ -11,6 +11,7 @@ if [ -f /opt/scripts/user.sh ]; then
 	echo "---Found optional script, executing---"
     chmod +x /opt/scripts/user.sh
     source /opt/scripts/user.sh
+    sleep 2
 else
 	echo "---No optional script found, continuing---"
 fi
