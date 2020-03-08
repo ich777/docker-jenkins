@@ -10,8 +10,7 @@ echo "---Checking for optional scripts---"
 if [ -f /opt/scripts/user.sh ]; then
 	echo "---Found optional script, executing---"
     chmod +x /opt/scripts/user.sh
-    source /opt/scripts/user.sh
-    sleep 2
+    /opt/scripts/user.sh
 else
 	echo "---No optional script found, continuing---"
 fi
