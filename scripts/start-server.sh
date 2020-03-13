@@ -61,22 +61,22 @@ if [ ! -f ${DATA_DIR}/war/jenkins.war ]; then
     CUR_V="$(find ${DATA_DIR}/war -name installedv* | cut -d 'v' -f2)"
 fi
 
-echo "---Version Check---"
-if [ "${JENKINS_V}" != "$CUR_V" ]; then
-	echo "---Version missmatch v$CUR_V installed, installing v${JENKINS_V}---"
-    rm ${DATA_DIR}/war/installedv$CUR_V
-    rm ${DATA_DIR}/war/jenkins.war
-	cd ${DATA_DIR}/war
-	if wget -q -nc --show-progress --progress=bar:force:noscroll "${JENKINS_URL}/jenkins/war/${DL_V}/jenkins.war" ; then
-		echo "---Successfully downloaded Jenkins!---"
-	else
-		echo "---Something went wrong, can't download Jenkins, putting server in sleep mode---"
-	sleep infinity
-	fi
-    touch ${DATA_DIR}/war/installedv${JENKINS_V}
-elif [ "${JENKINS_V}" == "$CUR_V" ]; then
-	echo "---Server versions match! Installed: v$CUR_V | Preferred: v${JENKINS_V}---"
-fi
+#echo "---Version Check---"
+#if [ "${JENKINS_V}" != "$CUR_V" ]; then
+#	echo "---Version missmatch v$CUR_V installed, installing v${JENKINS_V}---"
+#    rm ${DATA_DIR}/war/installedv$CUR_V
+#    rm ${DATA_DIR}/war/jenkins.war
+#	cd ${DATA_DIR}/war
+#	if wget -q -nc --show-progress --progress=bar:force:noscroll "${JENKINS_URL}/jenkins/war/${DL_V}/jenkins.war" ; then
+#		echo "---Successfully downloaded Jenkins!---"
+#	else
+#		echo "---Something went wrong, can't download Jenkins, putting server in sleep mode---"
+#	sleep infinity
+#	fi
+#    touch ${DATA_DIR}/war/installedv${JENKINS_V}
+#elif [ "${JENKINS_V}" == "$CUR_V" ]; then
+#	echo "---Server versions match! Installed: v$CUR_V | Preferred: v${JENKINS_V}---"
+#fi
 
 echo "---Preparing server---"
 if [ ! -d ${DATA_DIR}/workdir ]; then
