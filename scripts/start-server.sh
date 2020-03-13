@@ -18,29 +18,48 @@ else
 	echo "---"runtime" folder found---"
 fi
 
-echo "---Checking if Runtime is installed---"
-if [ -z "$(find ${DATA_DIR}/runtime -name jre*)" ]; then
-    if [ "${RUNTIME_NAME}" == "basicjre" ]; then
-    	echo "---Downloading and installing Runtime---"
-		cd ${DATA_DIR}/runtime
-		if wget -q -nc --show-progress --progress=bar:force:noscroll https://github.com/ich777/runtimes/raw/master/jre/basicjre.tar.gz ; then
-			echo "---Successfully downloaded Runtime!---"
-		else
-			echo "---Something went wrong, can't download Runtime, putting server in sleep mode---"
-			sleep infinity
-		fi
-        tar --directory ${DATA_DIR}/runtime -xvzf ${DATA_DIR}/runtime/basicjre.tar.gz
-        rm -R ${DATA_DIR}/runtime/basicjre.tar.gz
-    else
-    	if [ ! -d ${DATA_DIR}/runtime/${RUNTIME_NAME} ]; then
-        	echo "---------------------------------------------------------------------------------------------"
-        	echo "---Runtime not found in folder 'runtime' please check again! Putting server in sleep mode!---"
-        	echo "---------------------------------------------------------------------------------------------"
-        	sleep infinity
-        fi
-    fi
+if [ "${FORCE_BASICJRE_UPDATE}" == "true"]; then
+	echo "---Forcing reinstall of Basic-Runtime---"
+	if [ -d ${DATA_DIR}/runtime ]; then
+    	echo "---Deleting existing Runtime---"
+        rm -R ${DATA_DIR}/runtime
+        mkdir ${DATA_DIR}/runtime
+	fi
+	echo "---Downloading and installing Basic-Runtime---"
+	cd ${DATA_DIR}/runtime
+	if wget -q -nc --show-progress --progress=bar:force:noscroll https://github.com/ich777/runtimes/raw/master/jre/basicjre.tar.gz ; then
+		echo "---Successfully downloaded Basic-Runtime!---"
+	else
+		echo "---Something went wrong, can't download Basic-Runtime, putting server in sleep mode---"
+		sleep infinity
+	fi
+	tar --directory ${DATA_DIR}/runtime -xvzf ${DATA_DIR}/runtime/basicjre.tar.gz
+	rm -R ${DATA_DIR}/runtime/basicjre.tar.gz
 else
-	echo "---Runtime found---"
+	echo "---Checking if Runtime is installed---"
+	if [ -z "$(find ${DATA_DIR}/runtime -name jre*)" ]; then
+	    if [ "${RUNTIME_NAME}" == "basicjre" ]; then
+	    	echo "---Downloading and installing Runtime---"
+			cd ${DATA_DIR}/runtime
+			if wget -q -nc --show-progress --progress=bar:force:noscroll https://github.com/ich777/runtimes/raw/master/jre/basicjre.tar.gz ; then
+				echo "---Successfully downloaded Runtime!---"
+			else
+				echo "---Something went wrong, can't download Runtime, putting server in sleep mode---"
+				sleep infinity
+			fi
+	        tar --directory ${DATA_DIR}/runtime -xvzf ${DATA_DIR}/runtime/basicjre.tar.gz
+	        rm -R ${DATA_DIR}/runtime/basicjre.tar.gz
+	    else
+	    	if [ ! -d ${DATA_DIR}/runtime/${RUNTIME_NAME} ]; then
+	        	echo "---------------------------------------------------------------------------------------------"
+	        	echo "---Runtime not found in folder 'runtime' please check again! Putting server in sleep mode!---"
+	        	echo "---------------------------------------------------------------------------------------------"
+	        	sleep infinity
+	        fi
+	    fi
+	else
+		echo "---Runtime found---"
+	fi
 fi
 
 echo "---Checking if Jenkins is installed---"
