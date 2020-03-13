@@ -18,7 +18,7 @@ else
 	echo "---"runtime" folder found---"
 fi
 
-if [ "${FORCE_BASICJRE_UPDATE}" == "true"]; then
+if [ "${FORCE_BASICJRE_UPDATE}" == "true" ]; then
 	echo "---Forcing reinstall of Basic-Runtime---"
 	if [ -d ${DATA_DIR}/runtime ]; then
     	echo "---Deleting existing Runtime---"
