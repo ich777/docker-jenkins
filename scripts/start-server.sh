@@ -37,26 +37,52 @@ if [ "${FORCE_BASICJRE_UPDATE}" == "true" ]; then
 	rm -R ${DATA_DIR}/runtime/basicjre.tar.gz
 else
 	echo "---Checking if Runtime is installed---"
-	if [ -z "$(find ${DATA_DIR}/runtime -name jre*)" ]; then
+	if [ -z "$(find ${SERVER_DIR}/runtime -name jre*)" ]; then
 	    if [ "${RUNTIME_NAME}" == "basicjre" ]; then
-	    	echo "---Downloading and installing Runtime---"
-			cd ${DATA_DIR}/runtime
+    		echo "---Downloading and installing Basic Runtime---"
+			cd ${SERVER_DIR}/runtime
 			if wget -q -nc --show-progress --progress=bar:force:noscroll https://github.com/ich777/runtimes/raw/master/jre/basicjre.tar.gz ; then
 				echo "---Successfully downloaded Runtime!---"
 			else
 				echo "---Something went wrong, can't download Runtime, putting server in sleep mode---"
 				sleep infinity
 			fi
-	        tar --directory ${DATA_DIR}/runtime -xvzf ${DATA_DIR}/runtime/basicjre.tar.gz
-	        rm -R ${DATA_DIR}/runtime/basicjre.tar.gz
-	    else
-	    	if [ ! -d ${DATA_DIR}/runtime/${RUNTIME_NAME} ]; then
-	        	echo "---------------------------------------------------------------------------------------------"
-	        	echo "---Runtime not found in folder 'runtime' please check again! Putting server in sleep mode!---"
-	        	echo "---------------------------------------------------------------------------------------------"
-	        	sleep infinity
-	        fi
-	    fi
+        	tar --directory ${SERVER_DIR}/runtime -xvzf ${SERVER_DIR}/runtime/basicjre.tar.gz
+        	rm -rf ${SERVER_DIR}/runtime/basicjre.tar.gz
+		elif  [ "${RUNTIME_NAME}" == "jre11" ]; then
+			JRE11_URL="https://github.com/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11.0.9.1%2B1/OpenJDK11U-jre_x64_linux_hotspot_11.0.9.1_1.tar.gz"
+    		echo "---Downloading and installing JRE11---"
+			cd ${SERVER_DIR}/runtime
+			if wget -q -nc --show-progress --progress=bar:force:noscroll -O ${SERVER_DIR}/runtime/${RUNTIME_NAME}.tar.gz ${JRE11_URL} ; then
+				echo "---Successfully downloaded JRE11!---"
+			else
+				echo "---Something went wrong, can't download JRE11, putting server in sleep mode---"
+				sleep infinity
+			fi
+			mkdir ${SERVER_DIR}/runtime/${RUNTIME_NAME}
+        	tar --directory ${SERVER_DIR}/runtime/${RUNTIME_NAME} --strip-components=1 -xvzf ${SERVER_DIR}/runtime/${RUNTIME_NAME}.tar.gz
+        	rm -rf ${SERVER_DIR}/runtime/${RUNTIME_NAME}.tar.gz
+		elif  [ "${RUNTIME_NAME}" == "jre15" ]; then
+			JRE15_URL="https://github.com/AdoptOpenJDK/openjdk15-binaries/releases/download/jdk-15.0.1%2B9/OpenJDK15U-jre_x64_linux_hotspot_15.0.1_9.tar.gz"
+    		echo "---Downloading and installing JRE15---"
+			cd ${SERVER_DIR}/runtime
+			if wget -q -nc --show-progress --progress=bar:force:noscroll -O ${SERVER_DIR}/runtime/${RUNTIME_NAME}.tar.gz ${JRE15_URL} ; then
+				echo "---Successfully downloaded JRE15!---"
+			else
+				echo "---Something went wrong, can't download JRE15, putting server in sleep mode---"
+				sleep infinity
+			fi
+			mkdir ${SERVER_DIR}/runtime/${RUNTIME_NAME}
+        	tar --directory ${SERVER_DIR}/runtime/${RUNTIME_NAME} --strip-components=1 -xvzf ${SERVER_DIR}/runtime/${RUNTIME_NAME}.tar.gz
+        	rm -rf ${SERVER_DIR}/runtime/${RUNTIME_NAME}.tar.gz
+    	else
+	    	if [ ! -d ${SERVER_DIR}/runtime/${RUNTIME_NAME} ]; then
+        		echo "---------------------------------------------------------------------------------------------"
+        		echo "---Runtime not found in folder 'runtime' please check again! Putting server in sleep mode!---"
+        		echo "---------------------------------------------------------------------------------------------"
+        		sleep infinity
+        	fi
+    	fi
 	else
 		echo "---Runtime found---"
 	fi
