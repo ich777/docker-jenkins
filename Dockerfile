@@ -9,7 +9,7 @@ RUN apt-get update && \
 	apt-get update && \
 	apt-get -y install docker-ce && \
 	apt-get -y remove apt-transport-https ca-certificates gnupg2 software-properties-common && \
-	apt-get autoremove && \
+	apt-get -y autoremove && \
 	rm -rf /var/lib/apt/lists/*
 
 ENV DATA_DIR="/jenkins"
