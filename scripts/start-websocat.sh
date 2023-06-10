@@ -1,4 +1,10 @@
 #!/bin/bash
+if [ -z "${WAITFOR_WS}" ]; then
+  sleep 10
+else
+  sleep ${WAITFOR_WS}
+fi
+
 websocat -E ${WEB_SOCKET} | while read line; do
   NOTIFY_TITLE=$(echo $line | jq -r '.project')
   BUILD_NO=$(echo $line | jq -r '.number')
