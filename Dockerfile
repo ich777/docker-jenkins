@@ -13,10 +13,14 @@ RUN apt-get update && \
 	apt-get -y autoremove && \
 	rm -rf /var/lib/apt/lists/*
 
+RUN wget -qO /usr/local/bin/websocat https://github.com/vi/websocat/releases/latest/download/websocat.x86_64-unknown-linux-musl && \
+	chmod a+x /usr/local/bin/websocat
+
 ENV DATA_DIR="/jenkins"
 ENV RUNTIME_NAME="jre11"
 ENV JENKINS_V="latest"
 ENV JENKINS_URL="ftp://mirror.serverion.com/"
+ENV WEBSOCAT="false"
 ENV HTTP_PORT=8080
 ENV EXTRA_JENKINS_PARAMS=""
 ENV EXTRA_JVM_PARAMS=""
