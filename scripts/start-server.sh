@@ -145,5 +145,10 @@ export JENKINS_HOME=${DATA_DIR}/workdir
 rm ${DATA_DIR}/.wget* > /dev/null 2>&1
 chmod -R ${DATA_PERM} ${DATA_DIR}
 
+if [ "${WEBSOCAT}" == "true" ]; then
+  echo "---Starting Websocat Notify service...---"
+  /opt/scripts/start-websocat.sh
+fi
+
 cd ${DATA_DIR}/war
 ${DATA_DIR}/runtime/${RUNTIME_NAME}/bin/java -jar ${EXTRA_JVM_PARAMS} ${DATA_DIR}/war/jenkins.war --httpPort=${HTTP_PORT} ${EXTRA_JENKINS_PARAMS}
