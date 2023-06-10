@@ -147,7 +147,7 @@ chmod -R ${DATA_PERM} ${DATA_DIR}
 
 if [ "${WEBSOCAT}" == "true" ]; then
   echo "---Starting Websocat Notify service...---"
-  /opt/scripts/start-websocat.sh
+  /opt/scripts/start-websocat.sh &
 fi
 
 cd ${DATA_DIR}/war
