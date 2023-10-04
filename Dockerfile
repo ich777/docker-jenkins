@@ -17,7 +17,7 @@ RUN wget -qO /usr/local/bin/websocat https://github.com/vi/websocat/releases/lat
 	chmod a+x /usr/local/bin/websocat
 
 ENV DATA_DIR="/jenkins"
-ENV RUNTIME_NAME="jre11"
+ENV RUNTIME_NAME="jre17"
 ENV JENKINS_V="latest"
 ENV JENKINS_URL="ftp://mirror.serverion.com/"
 ENV WEBSOCAT="false"
