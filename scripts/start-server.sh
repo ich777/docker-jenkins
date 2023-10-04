@@ -88,6 +88,19 @@ else
 			mkdir ${DATA_DIR}/runtime/${RUNTIME_NAME}
         	tar --directory ${DATA_DIR}/runtime/${RUNTIME_NAME} --strip-components=1 -xvzf ${DATA_DIR}/runtime/${RUNTIME_NAME}.tar.gz
         	rm -rf ${DATA_DIR}/runtime/${RUNTIME_NAME}.tar.gz
+		elif  [ "${RUNTIME_NAME}" == "jre17" ]; then
+			JRE17_URL="https://github.com/AdoptOpenJDK/openjdk17-binaries/releases/download/jdk-2021-05-07-13-31/OpenJDK-jre_x64_linux_hotspot_2021-05-06-23-30.tar.gz"
+    		echo "---Downloading and installing JRE17---"
+			cd ${DATA_DIR}/runtime
+			if wget -q -nc --show-progress --progress=bar:force:noscroll -O ${DATA_DIR}/runtime/${RUNTIME_NAME}.tar.gz ${JRE17_URL} ; then
+				echo "---Successfully downloaded JRE17!---"
+			else
+				echo "---Something went wrong, can't download JRE17, putting server in sleep mode---"
+				sleep infinity
+			fi
+			mkdir ${DATA_DIR}/runtime/${RUNTIME_NAME}
+        	tar --directory ${DATA_DIR}/runtime/${RUNTIME_NAME} --strip-components=1 -xvzf ${DATA_DIR}/runtime/${RUNTIME_NAME}.tar.gz
+        	rm -rf ${DATA_DIR}/runtime/${RUNTIME_NAME}.tar.gz
     	else
 	    	if [ ! -d ${DATA_DIR}/runtime/${RUNTIME_NAME} ]; then
         		echo "---------------------------------------------------------------------------------------------"
