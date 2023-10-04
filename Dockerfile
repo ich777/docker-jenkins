@@ -9,7 +9,7 @@ RUN apt-get update && \
 	add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable" && \
 	apt-get update && \
 	apt-get -y install docker-ce && \
-	apt-get -y remove apt-transport-https ca-certificates gnupg2 software-properties-common && \
+	apt-get -y remove apt-transport-https gnupg2 software-properties-common && \
 	apt-get -y autoremove && \
 	rm -rf /var/lib/apt/lists/*
 
