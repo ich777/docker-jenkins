@@ -23,7 +23,7 @@ if [ ! -z "$(find ${DATA_DIR}/runtime -name jre*)" ]; then
 		if [ "$(ls -d ${DATA_DIR}/runtime/* | cut -d '/' -f5)" != "jre1.8.0_333" ]; then
 			rm -rf ${DATA_DIR}/runtime/*
 		fi
-	elif [ "${RUNTIME_NAME}" != "$(ls -d ${DATA_DIR}/runtime/* | cut -d '/' -f5)" ]; then
+	elif [ "${RUNTIME_NAME}" != "$(ls -d ${DATA_DIR}/runtime/* | cut -d '/' -f4)" ]; then
 		rm -rf ${DATA_DIR}/runtime/*
 	fi
 fi
