@@ -6,7 +6,7 @@ LABEL org.opencontainers.image.source="https://github.com/ich777/docker-jenkins"
 RUN apt-get update && \
 	apt-get -y install --no-install-recommends curl git libfontconfig apt-transport-https ca-certificates gnupg2 jq screen && \
 	curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /usr/share/keyrings/docker-keyring.gpg && \
-	add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable" && \
+	add-apt-repository "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-keyring.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable" && \
 	apt-get update && \
 	apt-get -y install docker-ce && \
 	apt-get -y remove apt-transport-https gnupg2 && \
