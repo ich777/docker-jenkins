@@ -115,6 +115,7 @@ if [ -z "$(find ${DATA_DIR}/runtime -name jre*)" ]; then
 		else
 			echo "---Something went wrong, can't download JRE25, putting server in sleep mode---"
 			sleep infinity
+        fi
     else
     	if [ ! -d ${DATA_DIR}/runtime/${RUNTIME_NAME} ]; then
         	echo "---------------------------------------------------------------------------------------------"
