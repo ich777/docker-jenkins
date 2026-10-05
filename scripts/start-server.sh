@@ -106,6 +106,15 @@ if [ -z "$(find ${DATA_DIR}/runtime -name jre*)" ]; then
 		mkdir ${DATA_DIR}/runtime/${RUNTIME_NAME}
         tar --directory ${DATA_DIR}/runtime/${RUNTIME_NAME} --strip-components=1 -xvzf ${DATA_DIR}/runtime/${RUNTIME_NAME}.tar.gz
         rm -rf ${DATA_DIR}/runtime/${RUNTIME_NAME}.tar.gz
+	elif  [ "${RUNTIME_NAME}" == "jre25" ]; then
+		JRE25_URL="https://download.java.net/java/GA/jdk25/bd75d5f9689641da8e1daabeccb5528b/36/GPL/openjdk-25_linux-x64_bin.tar.gz"
+    	echo "---Downloading and installing JRE25---"
+		cd ${SERVER_DIR}/runtime
+		if wget -q -nc --show-progress --progress=bar:force:noscroll -O ${SERVER_DIR}/runtime/${RUNTIME_NAME}.tar.gz ${JRE25_URL} ; then
+			echo "---Successfully downloaded JRE25!---"
+		else
+			echo "---Something went wrong, can't download JRE25, putting server in sleep mode---"
+			sleep infinity
     else
     	if [ ! -d ${DATA_DIR}/runtime/${RUNTIME_NAME} ]; then
         	echo "---------------------------------------------------------------------------------------------"
